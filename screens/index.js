@@ -1,4 +1,4 @@
 export { default as HomeScreen } from "./HomeScreen";
-export { default as SignInScreen } from "./SignInScreen";
-export { default as OtherScreen } from "./OtherScreen";
-export { default as AuthLoadingScreen } from "./AuthLoadingScreen";
+export { default as SettingsScreen } from "./SettingsScreen";
+export { default as DetailsScreen } from "./DetailsScreen";
+export { default as ProfileScreen } from "./ProfileScreen";
