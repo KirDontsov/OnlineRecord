@@ -14,6 +14,8 @@ import {
   ProfileScreen
 } from "./screens";
 
+import { SafeAreaProvider } from "react-native-safe-area-context";
+
 const Tab = createBottomTabNavigator();
 
 const SettingsStack = createStackNavigator();
@@ -38,51 +40,56 @@ export default class App extends Component {
       return <Loader />;
     }
     return (
-      <NavigationNativeContainer>
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              let iconName;
+      <SafeAreaProvider>
+        <NavigationNativeContainer>
+          <Tab.Navigator
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ focused, color, size }) => {
+                let iconName;
 
-              if (route.name === "Первый") {
-                iconName = `ios-home`;
-              } else if (route.name === "Второй") {
-                iconName = `ios-settings`;
+                if (route.name === "Первый") {
+                  iconName = `ios-home`;
+                } else if (route.name === "Второй") {
+                  iconName = `ios-settings`;
+                }
+
+                // You can return any component that you like here!
+                return <Ionicons name={iconName} size={size} color={color} />;
               }
-
-              // You can return any component that you like here!
-              return <Ionicons name={iconName} size={size} color={color} />;
-            }
-          })}
-          tabBarOptions={{
-            activeTintColor: "#000",
-            inactiveTintColor: "gray"
-          }}
-        >
-          <Tab.Screen name="Первый">
-            {() => (
-              <HomeStack.Navigator>
-                <HomeStack.Screen name="Главная" component={HomeScreen} />
-                <HomeStack.Screen name="Подробнее" component={DetailsScreen} />
-              </HomeStack.Navigator>
-            )}
-          </Tab.Screen>
-          <Tab.Screen name="Второй">
-            {() => (
-              <SettingsStack.Navigator>
-                <SettingsStack.Screen
-                  name="Настройки"
-                  component={SettingsScreen}
-                />
-                <SettingsStack.Screen
-                  name="Профиль"
-                  component={ProfileScreen}
-                />
-              </SettingsStack.Navigator>
-            )}
-          </Tab.Screen>
-        </Tab.Navigator>
-      </NavigationNativeContainer>
+            })}
+            tabBarOptions={{
+              activeTintColor: "#6a51ae",
+              inactiveTintColor: "gray"
+            }}
+          >
+            <Tab.Screen name="Первый">
+              {() => (
+                <HomeStack.Navigator>
+                  <HomeStack.Screen name="Главная" component={HomeScreen} />
+                  <HomeStack.Screen
+                    name="Подробнее"
+                    component={DetailsScreen}
+                  />
+                </HomeStack.Navigator>
+              )}
+            </Tab.Screen>
+            <Tab.Screen name="Второй">
+              {() => (
+                <SettingsStack.Navigator>
+                  <SettingsStack.Screen
+                    name="Настройки"
+                    component={SettingsScreen}
+                  />
+                  <SettingsStack.Screen
+                    name="Профиль"
+                    component={ProfileScreen}
+                  />
+                </SettingsStack.Navigator>
+              )}
+            </Tab.Screen>
+          </Tab.Navigator>
+        </NavigationNativeContainer>
+      </SafeAreaProvider>
     );
   }
 }
