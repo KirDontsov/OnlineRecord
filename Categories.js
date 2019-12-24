@@ -1,3 +1,5 @@
+// Set-ExecutionPolicy RemoteSigned -Scope Process
+
 // C:\Users\dev\react\onlineRecord\node_modules\metro-config\src\defaults\blacklist.js
 
 var sharedBlacklist = [
