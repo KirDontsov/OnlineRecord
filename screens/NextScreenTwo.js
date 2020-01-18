@@ -4,17 +4,17 @@ import { Text, Button, StyleSheet } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 import LightStatusBar from "../components/StatusBar";
 
-export default class SettingsScreen extends Component {
+export default class NextScreenTwo extends Component {
   render() {
     const { navigation } = this.props;
     return (
       <SafeAreaView style={[styles.container]}>
         <LightStatusBar />
 
-        <Text>Это настройки</Text>
+        <Text>Это четвертый экран</Text>
         <Button
-          title="Мой профиль"
-          onPress={() => navigation.navigate("Профиль")}
+          title="Подробнее"
+          onPress={() => navigation.navigate("Далее2")}
         />
       </SafeAreaView>
     );

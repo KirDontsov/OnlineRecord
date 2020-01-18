@@ -1,30 +1,28 @@
 import React, { Component } from "react";
-// import styled from "styled-components/native";
-import { Text, Button, StatusBar, StyleSheet } from "react-native";
+import { StyleSheet, Dimensions, ScrollView, View } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
+import LightStatusBar from "../components/StatusBar";
+import Cities from "../components/Cities";
 
-export default class HomeScreen extends Component {
-  render() {
-    const { navigation } = this.props;
-    return (
-      <SafeAreaView style={[styles.container]}>
-        <StatusBar
-          barStyle="dark-content"
-          hidden={false}
-          backgroundColor="#00BCD4"
-          translucent={true}
-        />
+const HomeScreen = ({ navigation }) => {
+  return (
+    <SafeAreaView style={styles.container}>
+      <LightStatusBar />
 
-        <Text>Это Главная</Text>
-        <Button
-          title="Подробнее"
-          onPress={() => navigation.navigate("Подробнее")}
-        />
-      </SafeAreaView>
-    );
-  }
-}
+      <Cities navigation={navigation} />
+    </SafeAreaView>
+  );
+};
+
+export default HomeScreen;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: "center", justifyContent: "center" }
+  container: {
+    flex: 1,
+    width: "100%",
+    height: Dimensions.get("window").height,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fff"
+  }
 });

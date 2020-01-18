@@ -1,9 +1,8 @@
 {
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 6032,
-  "expoServerNgrokUrl": "https://qi-h2m.anonymous.onlinerecord.exp.direct",
-  "packagerNgrokUrl": "https://packager.qi-h2m.anonymous.onlinerecord.exp.direct",
-  "ngrokPid": 10684,
-  "devToolsPort": 19002
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
