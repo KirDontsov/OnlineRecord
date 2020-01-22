@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { StyleSheet, Dimensions, ScrollView, View } from "react-native";
+import React from "react";
+import { StyleSheet, Dimensions } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 import LightStatusBar from "../components/StatusBar";
 import Cities from "../components/Cities";

@@ -9,8 +9,12 @@ const Quiz = props => {
   return (
     <View>
       <AppTextTitle>{props.count}</AppTextTitle>
-      <AppButton title="+" onPress={() => props.setCount(2)} />
-      <AppButton title="-" onPress={() => props.setCount(1)} />
+      <AppButton title="+" onPress={() => props.setCount(count++)} />
+      <AppButton title="-" onPress={() => props.setCount(count--)} />
+      <AppButton
+        title="Карта"
+        onPress={() => props.navigation.navigate("Map")}
+      />
     </View>
   );
 };

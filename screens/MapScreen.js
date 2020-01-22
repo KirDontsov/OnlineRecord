@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-// import styled from "styled-components/native";
-import { Text, View, Button, StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import LightStatusBar from "../components/StatusBar";
@@ -17,16 +16,14 @@ export default class MapScreen extends Component {
     marker: {
       latitude: 44.5622,
       longitude: 38.0848
-    },
-    title: ""
+    }
   };
 
   render() {
-    const { navigation, title } = this.props;
+    const { navigation } = this.props;
     return (
       <SafeAreaView style={[styles.container]}>
         <LightStatusBar />
-
         <MapView
           style={styles.mapStyle}
           customMapStyle={mapStyle}
@@ -36,13 +33,11 @@ export default class MapScreen extends Component {
           <Marker
             coordinate={this.state.marker}
             title={`Бассейн "Биг Вэйв"`}
-            description={"Дичайшая хуета"}
-            onPress={() => {
-              console.log(`Бассейн "Биг Вэйв"`);
-            }}
-            onCalloutPress={() =>
-              navigation.navigate("Record", { title: `Бассейн "Биг Вэйв"` })
-            }
+            description={"Грудничковое плавание"}
+            // onPress={() => {
+            //   console.log(`Бассейн "Биг Вэйв"`);
+            // }}
+            onCalloutPress={() => navigation.navigate("Record")}
           ></Marker>
         </MapView>
       </SafeAreaView>

@@ -1,26 +1,15 @@
 import React, { useState } from "react";
-import { Text, StatusBar, Button, StyleSheet, Platform } from "react-native";
-import {
-  NavigationNativeContainer,
-  SafeAreaView
-} from "@react-navigation/native";
+import { NavigationNativeContainer } from "@react-navigation/native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import {
   createStackNavigator,
   TransitionPresets
 } from "@react-navigation/stack";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { activeColor, passiveColor } from "./components/ui/Vars";
-import { Ionicons } from "@expo/vector-icons";
-import { getStatusBarHeight } from "react-native-status-bar-height";
+import * as Font from "expo-font";
 import { AppLoading } from "expo";
-
-const statusBarHeight = () => getStatusBarHeight();
-
-if (Platform.OS === "android" && statusBarHeight >= 24) {
-  SafeAreaView.setStatusBarHeight(0);
-}
-
+import { Ionicons } from "@expo/vector-icons";
+import { activeColor, passiveColor } from "./components/ui/Vars";
 import {
   HomeScreen,
   MapScreen,
@@ -38,14 +27,13 @@ const store = init({
     Quiz
   }
 });
-
 // config
 const config = {
   gestureEnabled: true,
   gestureDirection: "horizontal",
   ...TransitionPresets.SlideFromRightIOS
 };
-
+// icons
 async function loadApp() {
   await Font.loadAsync({
     ...Ionicons.font
@@ -55,7 +43,6 @@ async function loadApp() {
 const Tab = createBottomTabNavigator();
 
 const HomeStack = createStackNavigator();
-const ProfileStack = createStackNavigator();
 function HomeStackScreen() {
   return (
     <HomeStack.Navigator screenOptions={config} headerMode="float">
@@ -72,16 +59,26 @@ function HomeStackScreen() {
   );
 }
 
+const SettingsStack = createStackNavigator();
+function SettingsStackScreen() {
+  return (
+    <SettingsStack.Navigator screenOptions={config} headerMode="float">
+      <SettingsStack.Screen name="Settings" component={SettingsScreen} />
+      <SettingsStack.Screen name="Profile" component={ProfileScreen} />
+    </SettingsStack.Navigator>
+  );
+}
+
+const ProfileStack = createStackNavigator();
 function ProfileStackScreen() {
   return (
     <ProfileStack.Navigator screenOptions={config} headerMode="float">
       <ProfileStack.Screen name="Profile" component={ProfileScreen} />
-      <ProfileStack.Screen name="Settings" component={SettingsScreen} />
     </ProfileStack.Navigator>
   );
 }
 
-export default function App() {
+const App = () => {
   const [isReady, setIsReady] = useState(false);
   if (!isReady) {
     return (
@@ -94,44 +91,51 @@ export default function App() {
   }
 
   return (
-    <SafeAreaProvider>
-      <Provider store={store}>
-        <NavigationNativeContainer>
+    <Provider store={store}>
+      <NavigationNativeContainer>
+        <SafeAreaProvider>
           <Tab.Navigator
-            screenOptions={({ route }) => ({
-              tabBarIcon: ({ focused, color, size }) => {
-                let iconName;
+            screenOptions={
+              ({ ...TransitionPresets.SlideFromRightIOS },
+              ({ route }) => ({
+                tabBarIcon: ({ focused, color, size }) => {
+                  let iconName;
 
-                if (route.name === "Home") {
-                  iconName = `ios-paper`;
-                } else if (route.name === "Profile") {
-                  iconName = `ios-person`;
+                  if (route.name === "Record") {
+                    iconName = `ios-paper`;
+                  } else if (route.name === "Profile") {
+                    iconName = `ios-person`;
+                  } else if (route.name === "About") {
+                    iconName = `ios-information-circle`;
+                  } else if (route.name === "My Records") {
+                    iconName = `ios-list-box`;
+                  }
+                  return (
+                    <Ionicons
+                      name={iconName}
+                      size={size}
+                      color={color}
+                      focused={focused}
+                    />
+                  );
                 }
-                return (
-                  <Ionicons
-                    name={iconName}
-                    size={size}
-                    color={color}
-                    focused={focused}
-                  />
-                );
-              }
-            })}
+              }))
+            }
             tabBarOptions={{
               activeTintColor: activeColor,
               inactiveTintColor: passiveColor,
               safeAreaInset: { bottom: "never", top: "never" }
             }}
           >
-            <Tab.Screen name="Home" component={HomeStackScreen} />
+            <Tab.Screen name="Record" component={HomeStackScreen} />
             <Tab.Screen name="Profile" component={ProfileStackScreen} />
+            <Tab.Screen name="About" component={SettingsStackScreen} />
+            <Tab.Screen name="My Records" component={HomeStackScreen} />
           </Tab.Navigator>
-        </NavigationNativeContainer>
-      </Provider>
-    </SafeAreaProvider>
+        </SafeAreaProvider>
+      </NavigationNativeContainer>
+    </Provider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", alignItems: "center" }
-});
+export default App;

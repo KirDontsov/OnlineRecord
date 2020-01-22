@@ -14,7 +14,7 @@ export default class SettingsScreen extends Component {
         <Text>Это настройки</Text>
         <Button
           title="Мой профиль"
-          onPress={() => navigation.navigate("Профиль")}
+          onPress={() => navigation.navigate("Profile")}
         />
       </SafeAreaView>
     );

@@ -144,6 +144,7 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 def enableHermes = project.ext.react.get("enableHermes", false);
 
 dependencies {
+    implementation project(':react-native-device-info')
     implementation project(':react-native-screens')
     implementation project(':react-native-reanimated')
     implementation project(':react-native-gesture-handler')
@@ -153,7 +154,13 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
     addUnimodulesDependencies()
-    compile project(':react-native-vector-icons')
+    implementation project(':react-native-vector-icons')
+    implementation(project(':react-native-maps')){
+            exclude group: 'com.google.android.gms', module: 'play-services-base'
+            exclude group: 'com.google.android.gms', module: 'play-services-maps'
+        }
+        implementation 'com.google.android.gms:play-services-base:10.0.1'
+        implementation 'com.google.android.gms:play-services-maps:10.0.1'
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
@@ -170,3 +177,6 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
+
+include ':react-native-maps'
+project(':react-native-maps').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-maps/lib/android')

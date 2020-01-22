@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { View, StyleSheet, Dimensions, FlatList } from "react-native";
-import { AppLoading } from "expo";
 import { FontAwesome } from "@expo/vector-icons";
 import { activeColor } from "../components/ui/Vars";
 import Loader from "../components/ui/Loader";
@@ -19,16 +18,6 @@ const Cities = ({ navigation }) => {
 
     fetchCities();
   }, []);
-
-  if (!isReady) {
-    return (
-      <AppLoading
-        startAsync={() => useEffect()}
-        onError={err => console.log(err)}
-        onFinish={() => setIsReady(true)}
-      />
-    );
-  }
 
   return (
     <View style={[styles.container]}>
