@@ -24,7 +24,12 @@
       "bundleIdentifier": "ru.paradoxagency"
     },
     "android": {
-      "package": "ru.paradoxagency"
+      "package": "ru.paradoxagency",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyC7ILoUgMpIGUCPICwBPo3Ld0S4kv7VvTQ"
+        }
+      }
     }
   }
 }

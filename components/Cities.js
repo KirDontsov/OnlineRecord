@@ -1,53 +1,57 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
+import { connect } from "react-redux";
 import axios from "axios";
 import { View, StyleSheet, Dimensions, FlatList } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { activeColor } from "../components/ui/Vars";
 import Loader from "../components/ui/Loader";
 
-const Cities = ({ navigation }) => {
-  const [cities, setCities] = useState([]);
-  const [isReady, setIsReady] = useState(false);
+class Cities extends Component {
+  fetchCities = async () => {
+    const res = await axios.get("http://book-service.tw1.su/city.json");
+    this.props.getCities(res.data);
+    this.props.setIsReady(true);
+  };
+  componentDidMount() {
+    this.fetchCities();
+  }
 
-  useEffect(() => {
-    const fetchCities = async () => {
-      const res = await axios.get("http://book-service.tw1.su/city.json");
-      setCities(res.data);
-      setIsReady(true);
-    };
+  continue = item => {
+    this.props.setCity(item.city);
+    this.props.navigation.navigate("Map");
+  };
 
-    fetchCities();
-  }, []);
-
-  return (
-    <View style={[styles.container]}>
-      {isReady ? (
-        <FlatList
-          data={cities}
-          renderItem={({ item }) => {
-            return (
-              <View>
-                <FontAwesome.Button
-                  name="location-arrow"
-                  style={[styles.listItem]}
-                  iconStyle={styles.icon}
-                  color={"#000"}
-                  onPress={() => navigation.navigate("Map")}
-                >
-                  {item.city}
-                </FontAwesome.Button>
-                <View style={[styles.listDivider]} />
-              </View>
-            );
-          }}
-          keyExtractor={item => item.id}
-        />
-      ) : (
-        <Loader />
-      )}
-    </View>
-  );
-};
+  render() {
+    return (
+      <View style={[styles.container]}>
+        {this.props.isReady ? (
+          <FlatList
+            data={this.props.cities}
+            renderItem={({ item }) => {
+              return (
+                <View>
+                  <FontAwesome.Button
+                    name="location-arrow"
+                    style={[styles.listItem]}
+                    iconStyle={styles.icon}
+                    color={"#000"}
+                    onPress={() => this.continue(item)}
+                  >
+                    {item.city}
+                  </FontAwesome.Button>
+                  <View style={[styles.listDivider]} />
+                </View>
+              );
+            }}
+            keyExtractor={item => item.id}
+          />
+        ) : (
+          <Loader />
+        )}
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -90,4 +94,16 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Cities;
+const mapState = state => ({
+  cities: state.City.cities,
+  chosenCity: state.City.chosenCity,
+  isReady: state.City.isReady
+});
+
+const mapDispatch = ({ City: { getCities, setCity, setIsReady } }) => ({
+  getCities,
+  setCity,
+  setIsReady
+});
+
+export default connect(mapState, mapDispatch)(Cities);

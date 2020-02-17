@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, StatusBar, Button, StyleSheet, Platform } from "react-native";
+import { Font, StyleSheet, Platform } from "react-native";
 import {
   NavigationNativeContainer,
   SafeAreaView
@@ -24,18 +24,26 @@ if (Platform.OS === "android" && statusBarHeight >= 24) {
 import {
   HomeScreen,
   MapScreen,
-  RecordScreen,
   SettingsScreen,
-  ProfileScreen
+  ProfileScreen,
+  RecordScreen,
+  // quiz
+  FirstScreen,
+  SecondScreen,
+  ThirdScreen
 } from "./screens";
 // rematch
 import { Provider } from "react-redux";
 import { init } from "@rematch/core";
 import Quiz from "./models/Quiz";
+import City from "./models/City";
+import Map from "./models/Map";
 
 const store = init({
   models: {
-    Quiz
+    Quiz,
+    City,
+    Map
   }
 });
 
@@ -67,7 +75,34 @@ function HomeStackScreen() {
         }}
       />
       <HomeStack.Screen name="Map" component={MapScreen} />
-      <HomeStack.Screen name="Record" component={RecordScreen} />
+      <HomeStack.Screen
+        name="Record"
+        component={RecordScreen}
+        options={{
+          title: "Запись"
+        }}
+      />
+      <HomeStack.Screen
+        name="FirstScreen"
+        component={FirstScreen}
+        options={{
+          title: "Выбор специалиста"
+        }}
+      />
+      <HomeStack.Screen
+        name="SecondScreen"
+        component={SecondScreen}
+        options={{
+          title: "Выбор услуги"
+        }}
+      />
+      <HomeStack.Screen
+        name="ThirdScreen"
+        component={ThirdScreen}
+        options={{
+          title: "Выбор времени"
+        }}
+      />
     </HomeStack.Navigator>
   );
 }
@@ -76,7 +111,7 @@ function ProfileStackScreen() {
   return (
     <ProfileStack.Navigator screenOptions={config} headerMode="float">
       <ProfileStack.Screen name="Profile" component={ProfileScreen} />
-      <ProfileStack.Screen name="Settings" component={SettingsScreen} />
+      {/* <ProfileStack.Screen name="Settings" component={SettingsScreen} /> */}
     </ProfileStack.Navigator>
   );
 }

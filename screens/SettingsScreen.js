@@ -1,19 +1,25 @@
 import React, { Component } from "react";
-// import styled from "styled-components/native";
-import { Text, Button, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
-import LightStatusBar from "../components/StatusBar";
+import LightStatusBar from "../components/ui/StatusBar";
+import AppTextTitle from "../components/ui/AppTextTitle";
+import AppButton from "../components/ui/AppButton";
+import { passiveColor } from "../components/ui/Vars";
 
 export default class SettingsScreen extends Component {
   render() {
-    const { navigation } = this.props;
+    const { navigation, route } = this.props;
+    const { itemId } = route.params;
     return (
       <SafeAreaView style={[styles.container]}>
         <LightStatusBar />
 
-        <Text>Это настройки</Text>
-        <Button
-          title="Мой профиль"
+        <AppTextTitle style={styles.text}>Настройки</AppTextTitle>
+        <AppTextTitle style={styles.text}>
+          {JSON.stringify(itemId)}
+        </AppTextTitle>
+        <AppButton
+          title="Перейти в профиль"
           onPress={() => navigation.navigate("Profile")}
         />
       </SafeAreaView>
@@ -22,5 +28,6 @@ export default class SettingsScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: "center", justifyContent: "center" }
+  container: { flex: 1, alignItems: "center", justifyContent: "center" },
+  text: { color: passiveColor }
 });

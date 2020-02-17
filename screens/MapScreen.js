@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { StyleSheet, Dimensions } from "react-native";
+import { connect } from "react-redux";
 import SafeAreaView from "react-native-safe-area-view";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
-import LightStatusBar from "../components/StatusBar";
+// const polyline = require("@mapbox/polyline");
+import LightStatusBar from "../components/ui/StatusBar";
 import { mapStyle } from "../Maps";
 
-export default class MapScreen extends Component {
+class MapScreen extends Component {
   state = {
     region: {
       latitude: 44.5622,
@@ -19,8 +21,14 @@ export default class MapScreen extends Component {
     }
   };
 
+  continue = () => {
+    this.props.navigation.navigate("Record");
+    this.props.setFilial("Биг Вэйв");
+  };
+
   render() {
     const { navigation } = this.props;
+
     return (
       <SafeAreaView style={[styles.container]}>
         <LightStatusBar />
@@ -30,6 +38,7 @@ export default class MapScreen extends Component {
           provider={PROVIDER_GOOGLE}
           region={this.state.region}
         >
+          {/* <Polyline coordinates={coords} strokeColor="red" strokeWidth={1} /> */}
           <Marker
             coordinate={this.state.marker}
             title={`Бассейн "Биг Вэйв"`}
@@ -37,7 +46,7 @@ export default class MapScreen extends Component {
             // onPress={() => {
             //   console.log(`Бассейн "Биг Вэйв"`);
             // }}
-            onCalloutPress={() => navigation.navigate("Record")}
+            onCalloutPress={() => this.continue()}
           ></Marker>
         </MapView>
       </SafeAreaView>
@@ -52,3 +61,17 @@ const styles = StyleSheet.create({
     height: Dimensions.get("window").height
   }
 });
+
+const mapState = state => ({
+  cities: state.City.cities,
+  chosenCity: state.City.chosenCity,
+  isReady: state.City.isReady
+});
+
+const mapDispatch = ({ Map: { getFilials, setFilial, setIsReady } }) => ({
+  getFilials,
+  setFilial,
+  setIsReady
+});
+
+export default connect(mapState, mapDispatch)(MapScreen);

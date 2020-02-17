@@ -1,8 +1,9 @@
 {
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 8780,
+  "expoServerNgrokUrl": "https://xs-gg4.kir-dontsov.onlinerecord.exp.direct",
+  "packagerNgrokUrl": "https://packager.xs-gg4.kir-dontsov.onlinerecord.exp.direct",
+  "ngrokPid": 8692,
+  "devToolsPort": 19002
 }

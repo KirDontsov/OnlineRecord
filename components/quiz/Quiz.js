@@ -1,30 +1,44 @@
-import React from "react";
-import { View } from "react-native";
-import { connect } from "react-redux";
-import AppTextTitle from "../ui/AppTextTitle";
-import AppButton from "../ui/AppButton";
+// import React, { Component } from "react";
+// import { View } from "react-native";
+// import { connect } from "react-redux";
+// import AppText from "../ui/AppText";
+// import AppButton from "../ui/AppButton";
+// import FirstScreen from "../../screens/quiz/FirstScreen";
 
-const Quiz = props => {
-  console.log(props);
-  return (
-    <View>
-      <AppTextTitle>{props.count}</AppTextTitle>
-      <AppButton title="+" onPress={() => props.setCount(count++)} />
-      <AppButton title="-" onPress={() => props.setCount(count--)} />
-      <AppButton
-        title="Карта"
-        onPress={() => props.navigation.navigate("Map")}
-      />
-    </View>
-  );
-};
+// class Quiz extends Component {
+//   render() {
+//     const { navigation } = this.props;
+//     const { step } = this.props;
+//     switch (step) {
+//       case 0:
+//         return (
+//           <View>
+//             <AppButton
+//               title="Выбрать специалиста"
+//               onPress={() => this.props.setStep(1)}
+//             />
+//             <AppButton
+//               title="Выбрать услугу"
+//               onPress={() => this.props.setStep(2)}
+//             />
+//             <AppButton
+//               title="Выбрать время"
+//               onPress={() => this.props.setStep(3)}
+//             />
+//           </View>
+//         );
+//       case 1:
+//         return <FirstScreen />;
+//     }
+//   }
+// }
 
-const mapState = state => ({
-  count: state.Quiz.count
-});
+// const mapState = state => ({
+//   step: state.Quiz.step
+// });
 
-const mapDispatch = ({ Quiz: { setCount } }) => ({
-  setCount
-});
+// const mapDispatch = ({ Quiz: { setStep } }) => ({
+//   setStep
+// });
 
-export default connect(mapState, mapDispatch)(Quiz);
+// export default connect(mapState, mapDispatch)(Quiz);

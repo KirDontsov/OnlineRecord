@@ -8,3 +8,6 @@ var sharedBlacklist = [
   /heapCapture\/bundle\.js/,
   /.*\/__tests__\/.*/
 ];
+
+// expo fetch:android:hashes
+// expo build:android

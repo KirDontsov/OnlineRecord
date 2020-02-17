@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import styled from "styled-components/native";
 import { Text, Button, StyleSheet } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
-import LightStatusBar from "../components/StatusBar";
+import LightStatusBar from "../components/ui/StatusBar";
 
 export default class NextScreenTwo extends Component {
   render() {
